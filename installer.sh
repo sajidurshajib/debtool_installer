@@ -69,9 +69,26 @@ if [ $choose -eq 1 ]
     elif [ $internet -eq 5 ]
         then 
         echo -e ' [-] Under construction this feature.'
+        sudo apt-get update
+        sudo apt install xz-utils
+        sudo wget https://netcologne.dl.sourceforge.net/project/xdman/xdm-2018-x64.tar.xz
+        rm -r xdm
+        mkdir xdm
+        mv xdm-2018-x64.tar.xz xdm
+        cd xdm
+        tar -xf xdm-2018-x64.tar.xz
+        sudo chmod +x ./install.sh
+        sudo ./install.sh
+        cd ..
+        echo finished
+        
     elif [ $internet -eq 6 ]
         then 
-        pkg_repo ppa:deluge-team/ppa deluge
+        pkg_repo ppa:deluge-team/stable deluge
     fi
 
 fi
+
+#For restart
+clear
+./installer.sh
