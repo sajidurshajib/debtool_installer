@@ -1,5 +1,4 @@
 #!/bin/bash
-#var choose
 
 #All function start
 function pkg_install(){
@@ -10,6 +9,7 @@ function pkg_install(){
 
 function pkg_wget(){
     sudo apt-get update
+    rm $1
     sudo wget $1
     sudo chmod +x $2
     sudo dpkg -i $2
@@ -44,14 +44,20 @@ echo -e '\n'
 
 read -p ' [*] Select >> ' choose
 
+
+
+
+#Internet
 if [ $choose -eq 1 ]
     then 
+    echo -e '\n === Internet ===\n'
     echo -e ' [1] Firefox'
     echo -e ' [2] Chrome'
     echo -e ' [3] Chromium'
     echo -e ' [4] Opera'
     echo -e ' [5] Xtreme (Downloader like IDM)'
     echo -e ' [6] Deluge (Torrent downloader)'
+    echo -e '\n'
 
     read -p ' [*] Select >> ' internet
     if [ $internet -eq 1 ]
@@ -85,10 +91,68 @@ if [ $choose -eq 1 ]
     elif [ $internet -eq 6 ]
         then 
         pkg_repo ppa:deluge-team/stable deluge
+    else
+        clear
+        ./installer.sh
     fi
 
+
+
+
+
+
+#Media    
+elif [ $choose -eq 2 ]
+    then
+    echo -e '\n === Media ===\n'
+    echo -e ' [1] VLC media player (Best)'
+    echo -e ' [2] Smplayer'
+    echo -e ' [3] Banshee'
+    echo -e ' [4] MPV player'
+    echo -e ' [5] Kodi player'
+    echo -e ' [6] Mplayer'
+    echo -e '\n'
+
+    read -p ' [*] Select >> ' media
+    if [ $media -eq 1 ]
+        then 
+        pkg_instal vlc
+    elif [ $media -eq 2 ]
+        then 
+        sudo add-apt-repository ppa:rvm/smplayer
+        sudo apt-get update
+        sudo apt-get install smplayer smplayer-themes smplayer-skins
+    elif [ $media -eq 3 ]
+        then 
+        pkg_repo ppa:banshee-team/ppa banshee
+    elif [ $media -eq 4 ]
+        then 
+        pkg_repo ppa:mc3man/mpv-tests mpv
+    elif [ $media -eq 5 ]
+        then 
+        pkg_repo ppa:team-xbmc/ppa kodi
+    elif [ $media -eq 6 ]
+        then
+        pkg_install mplayer
+        sudo apt autoremove
+    else 
+        clear
+        ./installer.sh
+    fi
+
+else
+    clear
+    ./installer.sh
+fi
+
+
+read -p ' [*] Restart (y/n): ' restart
+if [ "$restart" = "y" ]
+    then 
+    clear
+    ./installer.sh
 fi
 
 #For restart
-clear
-./installer.sh
+#clear
+#./installer.sh
