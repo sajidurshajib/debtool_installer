@@ -116,7 +116,7 @@ elif [ $choose -eq 2 ]
     read -p ' [*] Select >> ' media
     if [ $media -eq 1 ]
         then 
-        pkg_instal vlc
+        pkg_install vlc
     elif [ $media -eq 2 ]
         then 
         sudo add-apt-repository ppa:rvm/smplayer
